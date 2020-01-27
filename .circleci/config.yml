@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  bitcoind:
+  build:
     machine: true
     steps:
       - checkout
@@ -16,10 +16,10 @@ workflows:
   version: 2
   commit:
     jobs:
-      - bitcoind
+      - build
   nightly:
     jobs:
-      - bitcoind
+      - build
     triggers:
       - schedule:
           cron: "0 2 * * *"
