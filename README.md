@@ -1,5 +1,7 @@
 # Bitcoind Docker Image
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/109e2de909e645aebaa73d8b099c72b9)](https://app.codacy.com/manual/legacycode/bitcoind-docker?utm_source=github.com&utm_medium=referral&utm_content=legacycode/bitcoind-docker&utm_campaign=Badge_Grade_Dashboard)
+
 ![MicroBadger Size](https://img.shields.io/microbadger/image-size/leacycode/bitcoind) ![MicroBadger Layers](https://img.shields.io/microbadger/layers/legacycode/bitcoind) ![Docker Pulls](https://img.shields.io/docker/pulls/legacycode/bitcoind) ![Docker Stars](https://img.shields.io/docker/stars/legacycode/bitcoind)
 
 ## Introduction
