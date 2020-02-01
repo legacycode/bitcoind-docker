@@ -1,2 +1,0 @@
-Bitcoind Docker image
-=====================
