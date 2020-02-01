@@ -13,7 +13,7 @@ RUN apk add --no-cache --update alpine-sdk \
 
 WORKDIR /bitcoin
 
-RUN git clone https://github.com/bitcoin/bitcoin.git --branch=v0.18.1 /bitcoin \
+RUN git clone https://github.com/bitcoin/bitcoin.git --branch=v0.19.0 --depth=1 /bitcoin \
   && ./autogen.sh \
   && ./configure --disable-wallet \
   && make -j4 \
