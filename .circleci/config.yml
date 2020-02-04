@@ -5,7 +5,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: echo 'export DOCKER_TAG=${DOCKER_USERNAME}/bitcoind:latest' >> $BASH_ENV
+      - run: echo 'export DOCKER_TAG=${DOCKER_USERNAME}/bitcoind:${CIRCLE_BRANCH}' >> $BASH_ENV
       - run: docker info
       - run: docker build . -t ${DOCKER_TAG}
       - run: docker run --rm ${DOCKER_TAG} -version
@@ -26,4 +26,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - dev
