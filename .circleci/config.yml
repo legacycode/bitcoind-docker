@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: echo 'export DOCKER_TAG=${DOCKER_USERNAME}/bitcoind:${CIRCLE_BRANCH}' >> $BASH_ENV
       - run: docker info
-      - run: docker build . -t ${DOCKER_TAG}
+      - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` --build-arg VCS_REF=$CIRCLE_SHA1 . -t ${DOCKER_TAG}
       - run: docker run --rm ${DOCKER_TAG} -version
       - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
       - run: docker push ${DOCKER_TAG}
