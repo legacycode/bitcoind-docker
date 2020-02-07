@@ -9,8 +9,17 @@ jobs:
       - run: docker info
       - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` --build-arg VCS_REF=$CIRCLE_SHA1 . -t ${DOCKER_TAG}
       - run: docker run --rm ${DOCKER_TAG} -version
-#      - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-#      - run: docker push ${DOCKER_TAG}
+  nightly:
+    docker:
+      - image: circleci/node:10.0-browsers
+    steps:
+      - checkout
+      - run:
+          name: Trigger docker nightly remotely
+          command: |
+            curl -H 'Content-Type: application/json' \
+            --data '{"source_type": "Branch", "source_name": "nightly"}' \
+            -X POST ${DOCKERHUB_TRIGGER}
 
 workflows:
   version: 2
@@ -19,7 +28,7 @@ workflows:
       - build
   nightly:
     jobs:
-      - build
+      - nightly
     triggers:
       - schedule:
           cron: "0 2 * * *"

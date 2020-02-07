@@ -11,7 +11,8 @@ This documentation focus on running Docker container with *docker-compose.yml* f
 
 ## Supported tags and respective Dockerfile links
 
-[`latest`](https://github.com/legacycode/bitcoind-docker/blob/master/Dockerfile) [`v0.19.0.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.0.1/Dockerfile) [`v0.19.0`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.0/Dockerfile) [`v0.18.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.18.1/Dockerfile)
+- [`latest`](https://github.com/legacycode/bitcoind-docker/blob/latest/Dockerfile) [`v0.19.0.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.0.1/Dockerfile) [`v0.19.0`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.0/Dockerfile) [`v0.18.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.18.1/Dockerfile) - stable bitcoind builds
+- [`nightly`](https://github.com/legacycode/bitcoind-docker/blob/nightly/Dockerfile) - nightly bincoind builds (do not use in production)
 
 ## Starting your bitcoind node
 
@@ -61,7 +62,7 @@ The Docker images are based on the [alpine Docker image][7]. Refer to the offici
 [1]: https://github.com/legacycode/bitcoind-docker
 [2]: https://docs.docker.com/
 [3]: https://docs.docker.com/storage/volumes/
-[4]: https://github.com/legacycode/bitcoind-docker/blob/master/LICENSE.md
+[4]: https://github.com/legacycode/bitcoind-docker/blob/latest/LICENSE.md
 [5]: https://github.com/bitcoin/bitcoin
 [6]: https://github.com/bitcoin/bitcoin/blob/master/COPYING
 [7]: https://hub.docker.com/_/alpine
