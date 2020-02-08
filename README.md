@@ -16,27 +16,42 @@ This documentation focus on running Docker container with _docker-compose.yml_ f
 
 ## Starting your bitcoind node
 
-```yaml
-version: "2"
+To quick start your _bitcoind_ node just clone this repository and run Docker:
 
-services:
-  bitcoind:
-    container_name: bitcoind
-    hostname: bitcoind
-    image: legacycode/bitcoind:latest
-    restart: unless-stopped
-    volumes:
-      - bitcoind-data:/home/bitcoin/.bitcoin
-    ports:
-      - 8333:8333
-    command: [
-      "-server",
-      "-txindex",
-    ]
-
-volumes:
-  bitcoind-data:
+```shell
+git clone https://github.com/legacycode/bitcoind-docker.git
+cd bitcoind-docker
+docker-compose up -d
 ```
+
+Or create the Docker compose file by yourself and run Docker:
+
+1.  Create a _docker-compose.yml_ file with the following content:
+
+    ```yaml
+    version: "2"
+
+    services:
+      bitcoind:
+        container_name: bitcoind
+        hostname: bitcoind
+        image: legacycode/bitcoind:latest
+        restart: unless-stopped
+        volumes:
+          - bitcoind-data:/home/bitcoin/.bitcoin
+        ports:
+          - 8333:8333
+        command: [
+          "-server",
+          "-txindex",
+        ]
+
+    volumes:
+      bitcoind-data:
+    ```
+
+2.  Run the container by entering the following command into your terminal:
+    `docker-compose up`
 
 ## Docker volumes
 
