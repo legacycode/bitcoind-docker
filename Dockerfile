@@ -1,31 +1,32 @@
-ARG BITCOIND_VERSION=v0.19.0.1
+ARG BITCOIND_VERSION=0.19.0.1
 
-FROM alpine:3.10 AS builder
+FROM alpine:3.11 AS builder
 
 ARG BITCOIND_VERSION
 
-# Install dependencies and build the binaries.
-RUN apk add --no-cache --update alpine-sdk \
-   autoconf \
-   automake \
-   boost-dev \
-   git \
-   libtool \
-   libevent-dev \
-   openssl-dev \
-   zeromq-dev
-
 WORKDIR /bitcoin
 
-RUN git clone https://github.com/bitcoin/bitcoin.git --branch=$BITCOIND_VERSION --depth=1 /bitcoin \
-  && ./autogen.sh \
-  && ./configure --disable-wallet \
-  && make -j4 \
-  && make install
+RUN set -eux; \
+  apkArch="$(apk --print-arch)"; \
+  \
+  case "$apkArch" in \
+    x86) \
+      url=https://bitcoincore.org/bin/bitcoin-core-$BITCOIND_VERSION/bitcoin-$BITCOIND_VERSION-i686-pc-linux-gnu.tar.gz ;; \
+    x86_64) \
+      url=https://bitcoin.org/bin/bitcoin-core-$BITCOIND_VERSION/bitcoin-$BITCOIND_VERSION-x86_64-linux-gnu.tar.gz ;; \
+    armv7) \
+      url=https://bitcoincore.org/bin/bitcoin-core-$BITCOIND_VERSION/bitcoin-$BITCOIND_VERSION-arm-linux-gnueabihf.tar.gz ;; \
+    aarch64) \
+      url=https://bitcoincore.org/bin/bitcoin-core-$BITCOIND_VERSION/bitcoin-$BITCOIND_VERSION-aarch64-linux-gnu.tar.gz ;; \
+    *) \
+      echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
+  esac; \
+  \
+  wget -q -O- $url |tar xz -C /bitcoin --strip-components=1
 
 
 # Start a new, final image.
-FROM alpine:3.10 AS final
+FROM alpine:3.11 AS final
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -47,7 +48,7 @@ RUN apk add --no-cache --update \
    boost \
    libevent \
    openssl \
-   libzmq 
+   libzmq
 
 # Add user and group for bitcoin process.
 RUN addgroup -S bitcoin \
@@ -62,7 +63,7 @@ USER bitcoin
 VOLUME ["/home/bitcoin/.bitcoin"]
 
 # Copy the binaries from the builder image.
-COPY --from=builder /usr/local/bin/bitcoind /usr/local/bin/bitcoind
+COPY --from=builder /bitcoin/bin/bitcoind /usr/local/bin/bitcoind
 
 # Expose btcd ports (p2p, rpc).
 EXPOSE 8333 8332

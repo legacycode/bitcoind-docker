@@ -1,4 +1,0 @@
-#!/bin/bash
-docker info
-docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` --build-arg VCS_REF=$SOURCE_COMMIT . -t $IMAGE_NAME
-docker run --rm $IMAGE_NAME -version

@@ -1,6 +1,6 @@
 # Bitcoind Docker Image
 
-![MicroBadger Size](https://img.shields.io/microbadger/image-size/leacycode/bitcoind) ![MicroBadger Layers](https://img.shields.io/microbadger/layers/legacycode/bitcoind) ![Docker Pulls](https://img.shields.io/docker/pulls/legacycode/bitcoind) ![Docker Stars](https://img.shields.io/docker/stars/legacycode/bitcoind) ![Codacy grade](https://img.shields.io/codacy/grade/109e2de909e645aebaa73d8b099c72b9) ![CircleCI](https://img.shields.io/circleci/build/github/legacycode/bitcoind-docker)
+![MicroBadger Layers](https://img.shields.io/microbadger/layers/legacycode/bitcoind) ![Docker Pulls](https://img.shields.io/docker/pulls/legacycode/bitcoind) ![Docker Stars](https://img.shields.io/docker/stars/legacycode/bitcoind) ![Codacy grade](https://img.shields.io/codacy/grade/109e2de909e645aebaa73d8b099c72b9) ![CircleCI](https://img.shields.io/circleci/build/github/legacycode/bitcoind-docker)
 
 ## Introduction
 
@@ -9,10 +9,21 @@ The Docker source file of this image is located at [Dockerfile][1].
 
 This documentation focus on running Docker container with _docker-compose.yml_ files. These files are better to read and you can use them as a template. For more information about Docker and Docker compose visit the official [Docker documentation][2].
 
-## Supported tags and respective Dockerfile links
+## Supported tags and architectures
+
+This bitcoind images supports following tags for e.g. Linux, Raspberry, Pine64 etc.:
 
 -   [`latest`](https://github.com/legacycode/bitcoind-docker/blob/latest/Dockerfile) [`v0.19.0.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.0.1/Dockerfile) [`v0.19.0`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.0/Dockerfile) [`v0.18.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.18.1/Dockerfile) - stable bitcoind builds
--   [`nightly`](https://github.com/legacycode/bitcoind-docker/blob/nightly/Dockerfile) - nightly bincoind builds (do not use in production)
+
+This images supports following architectures [(more info)](8):
+
+-   `amd64` - for most desktop processors
+
+-   `arm7v` - for 32-Bit ARM images like Raspbian (Raspberry 1, 2, 3 and 4)
+
+-   `arm64` - for 64-Bit ARM images like armbian
+
+-   `386` - for legacy desktop processors
 
 ## Starting your bitcoind node
 

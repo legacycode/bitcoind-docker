@@ -1,38 +1,38 @@
 version: 2
 
-jobs:
-  build:
-    machine: true
+jobs: 
+  build: 
+    machine: 
+      image: "ubuntu-1604:201903-01"
     steps:
       - checkout
-      - run: echo 'export DOCKER_TAG=${DOCKER_USERNAME}/bitcoind:${CIRCLE_BRANCH}' >> $BASH_ENV
-      - run: docker info
-      - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` --build-arg VCS_REF=$CIRCLE_SHA1 . -t ${DOCKER_TAG}
-      - run: docker run --rm ${DOCKER_TAG} -version
-  nightly:
-    docker:
-      - image: circleci/node:10.0-browsers
-    steps:
-      - checkout
-      - run:
-          name: Trigger docker nightly remotely
-          command: |
-            curl -H 'Content-Type: application/json' \
-            --data '{"source_type": "Branch", "source_name": "nightly"}' \
-            -X POST ${DOCKERHUB_TRIGGER}
+      - run: echo 'export DOCKER_TAG=${DOCKER_USERNAME}/bitcoind:${CIRCLE_BRANCH}${CIRCLE_TAG}' >> $BASH_ENV
 
-workflows:
+      - run: docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+      - run: docker run --name=buildcontainer --privileged -d legacycode/bitcoind:builder
+      - run: docker exec buildcontainer docker buildx create --name worker
+      - run: docker exec buildcontainer docker buildx use worker
+      - run: docker exec buildcontainer docker buildx inspect --bootstrap
+      - run: docker exec buildcontainer docker buildx ls
+      - run: docker exec buildcontainer docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      - run: docker cp Dockerfile buildcontainer:/
+
+      - run: |
+          docker exec buildcontainer docker buildx build \
+          --platform linux/amd64,linux/arm64,linux/386,linux/arm/v7 \
+          --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+          --build-arg VCS_REF=$CIRCLE_SHA1 . -t ${DOCKER_TAG} --push
+
+workflows: 
   version: 2
-  commit:
-    jobs:
+  tagged: 
+    jobs: 
+      - build: 
+          filters: 
+            branches: 
+              ignore: /.*/
+            tags: 
+              only: /^v.*/
+  untagged: 
+    jobs: 
       - build
-  nightly:
-    jobs:
-      - nightly
-    triggers:
-      - schedule:
-          cron: "0 2 * * *"
-          filters:
-            branches:
-              only:
-                - nightly

@@ -1,1 +1,0 @@
-Build hook for dockerhub.
