@@ -13,14 +13,16 @@ This documentation focus on running Docker container with _docker-compose.yml_ f
 
 This bitcoind images supports following tags for e.g. Linux, Raspberry, Pine64 etc.:
 
--   [`latest`](https://github.com/legacycode/bitcoind-docker/blob/latest/Dockerfile) [`v0.19.0.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.0.1/Dockerfile) - stable bitcoind builds
+-   [`latest`](https://github.com/legacycode/bitcoind-docker/blob/latest/Dockerfile)
+-   [`v0.20.0`](https://github.com/legacycode/bitcoind-docker/blob/v0.20.0/Dockerfile)
+-   [`v0.19.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.1/Dockerfile)
+-   [`v0.19.0.1`](https://github.com/legacycode/bitcoind-docker/blob/v0.19.0.1/Dockerfile)
 
 This images supports following architectures [(more info)](8):
 
 -   `amd64` - for most desktop processors
 -   `arm7v` - for 32-Bit ARM images like Raspbian (Raspberry 1, 2, 3 and 4)
 -   `arm64` - for 64-Bit ARM images like armbian (Pine 64, etc.)
--   `386` - for legacy desktop processors
 
 ## Starting your bitcoind node
 

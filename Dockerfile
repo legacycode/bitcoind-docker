@@ -1,4 +1,4 @@
-ARG BITCOIND_VERSION=0.19.1
+ARG BITCOIND_VERSION=0.20.0
 
 FROM debian:buster-slim AS builder
 
@@ -20,8 +20,6 @@ WORKDIR /bitcoin
 RUN set -eux; \
   arch="$(dpkg --print-architecture)"; \
   case "$arch" in \
-    i386) \
-      url=https://bitcoincore.org/bin/bitcoin-core-$BITCOIND_VERSION/bitcoin-$BITCOIND_VERSION-i686-pc-linux-gnu.tar.gz ;; \
     amd64) \
       url=https://bitcoin.org/bin/bitcoin-core-$BITCOIND_VERSION/bitcoin-$BITCOIND_VERSION-x86_64-linux-gnu.tar.gz ;; \
     armhf) \
