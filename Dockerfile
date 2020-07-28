@@ -1,4 +1,4 @@
-ARG BITCOIND_VERSION=0.19.0.1
+ARG BITCOIND_VERSION=0.19.1
 
 FROM debian:buster-slim AS builder
 
