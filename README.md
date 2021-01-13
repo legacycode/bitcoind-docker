@@ -50,6 +50,9 @@ Or create the Docker compose file by yourself and run Docker:
         restart: unless-stopped
         volumes:
           - bitcoind-data:/home/bitcoin/.bitcoin
+          # For binding a local folder make sure that the folder permissions
+          # are set to user id 999 and group id 999 (chown 999.999 /customFolder -R)
+          # - /customFolder:/home/bitcoin/.bitcoin
         ports:
           - 8333:8333
         command: [
@@ -75,7 +78,13 @@ docker volume ls
 docker volume rm bitcoind-data
 ```
 
-For binding a local folder to your _bitcoind_ container please read the [Docker documentation][2]. The preferred way is to use a Docker managed volume.
+For binding a local folder to your _bitcoind_ container please read the [Docker documentation][2]. The bitcoin user in the Docker container is running with **user id 999** and **group id 999**. Make sure that your local folder have the right permissions set:
+
+```bash
+chown 999.999 /customFolder -R
+```
+
+The preferred way is to use a Docker managed volume.
 
 ## License
 
