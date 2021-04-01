@@ -1,4 +1,4 @@
-ARG BITCOIND_VERSION=0.20.1
+ARG BITCOIND_VERSION=0.21.0
 
 FROM debian:buster-slim AS builder
 
@@ -7,7 +7,7 @@ ARG BITCOIND_VERSION
 # Install dependencies and build the binaries.
 RUN apt-get update --yes \
   && apt-get install --no-install-recommends --yes \
-    ca-certificates=20190110 \
+    ca-certificates=20200601~deb10u2 \
     dirmngr=2.2.12-1+deb10u1 \
     gpg=2.2.12-1+deb10u1 \
     gpg-agent=2.2.12-1+deb10u1 \
